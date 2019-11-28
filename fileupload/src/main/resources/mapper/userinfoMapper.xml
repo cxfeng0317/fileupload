@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.dao.UserinfoDao">
+	<select id="findAll" resultType="Userinfo">
+		SELECT
+		  `userid`,
+		  `username`,
+		  `userpass`,
+		  `userheadimage`,
+		  `userrole`
+		FROM `sso`.`userinfo`
+	</select>
+	<select id="findById" resultType="Userinfo">
+		SELECT
+		  `userid`,
+		  `username`,
+		  `userpass`,
+		  `userheadimage`,
+		  `userrole`
+		FROM `sso`.`userinfo` where id=#{id}
+	</select>
+	<select id="findByNameAndPadd" resultType="Userinfo">
+		SELECT
+		  `userid`,
+		  `username`,
+		  `userpass`,
+		  `userheadimage`,
+		  `userrole`
+		FROM `sso`.`userinfo` where username=#{username} and userpass=#{userpass}
+	</select>
+	<insert id="add">
+		INSERT INTO `sso`.`userinfo`
+            (`username`,
+             `userpass`,
+             `userheadimage`,
+             `userrole`)
+		VALUES (#{username},
+		        #{userpass},
+		        #{userheadimage},
+		        #{userrole})
+	</insert>
+	<update id="update">
+		UPDATE `sso`.`userinfo`
+		<set>
+			<if test="username!=null">`username` = #{username},</if>
+			<if test="userpass!=null">`userpass` = #{userpass},</if>
+			<if test="userheadimage!=null">`userheadimage` = #{userheadimage},</if>
+			<if test="userrole!=null">`userrole` = #{userrole}</if>
+			
+		</set>
+		WHERE `userid` = #{userid}
+	</update>
+	<delete id="deleteById">
+		DELETE
+		FROM `sso`.`userinfo`
+		WHERE `userid` = #{userid};
+	</delete>
+</mapper>
